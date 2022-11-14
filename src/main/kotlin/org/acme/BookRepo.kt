@@ -11,7 +11,6 @@ import java.lang.RuntimeException
 internal class BookRepo : PanacheRepository<Book> {
     fun getBook(bookId: Long): Uni<Book> {
         return findById(bookId)
-            .call { it -> Mutiny.fetch(it.pages) }
             .map {
                 it ?: throw RuntimeException("Book with id $bookId not found")
             }
