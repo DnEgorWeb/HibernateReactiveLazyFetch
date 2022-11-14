@@ -18,4 +18,19 @@ internal data class Page(
     @Fetch(FetchMode.JOIN)
     @JsonIgnore
     var book: Book? = Book(),
-)
+) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (javaClass != other?.javaClass) return false
+
+        other as Page
+
+        if (pageId != other.pageId) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int {
+        return pageId?.hashCode() ?: 0
+    }
+}

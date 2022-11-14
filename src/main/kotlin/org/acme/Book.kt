@@ -16,4 +16,19 @@ internal data class Book (
     @OneToMany(mappedBy = "book", fetch = FetchType.LAZY)
     @Fetch(FetchMode.JOIN)
     val pages: MutableSet<Page> = mutableSetOf(),
-)
+) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (javaClass != other?.javaClass) return false
+
+        other as Book
+
+        if (bookId != other.bookId) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int {
+        return bookId?.hashCode() ?: 0
+    }
+}
